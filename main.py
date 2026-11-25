@@ -10,13 +10,18 @@ Standard library only. Fully deterministic: the same bytes on every run.
 import os
 import sys
 
+# The joke's reversal: the "fix" hardens the captcha against the wrong
+# audience -- humans get locked out, the bots it targeted still pass.
 ENTRY = "fix: bots kept passing the captcha, made it harder; humans fail it now, bots still pass"
+
+# Bounty limit: commit messages must be 100 chars or fewer.
+MAX_LEN = 100
 
 
 def main() -> int:
-    if not 1 <= len(ENTRY) <= 100:
+    if not 1 <= len(ENTRY) <= MAX_LEN:
         print(
-            "entry must be 1-100 characters, got %d" % len(ENTRY),
+            "entry must be 1-%d characters, got %d" % (MAX_LEN, len(ENTRY)),
             file=sys.stderr,
         )
         return 1
